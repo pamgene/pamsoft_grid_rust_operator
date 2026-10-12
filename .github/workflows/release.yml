@@ -31,7 +31,7 @@ jobs:
         jq -r '.container' operator.json
     - name: Build docker image
       env:
-        GH_PAT: ${{ secrets.GH_PAT }}
+        GH_PAT: ${{ secrets.GA_RUST_DEPS_READ }}
       run: |
         DOCKER_BUILDKIT=1 docker build \
           --secret id=gh_pat,env=GH_PAT \
