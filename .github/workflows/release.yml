@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      packages: write
     steps:
     - uses: actions/checkout@v2
       with:
@@ -17,7 +18,7 @@ jobs:
     - name: VERSION
       run: |
         echo "TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
-        echo "DOCKER_IMAGE=pamgene/${{ github.event.repository.name }}" >> $GITHUB_ENV
+        echo "DOCKER_IMAGE=ghcr.io/pamgene/${{ github.event.repository.name }}" >> $GITHUB_ENV
     - name: Update container in operator JSON
       # Rewrite `container` in operator.json from `pamgene/...:latest` to
       # the tagged image so Tercen pulls the versioned image, not :latest.
@@ -39,7 +40,7 @@ jobs:
           -t $DOCKER_IMAGE:$TAG .
     - name: docker login
       run: |
-        docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password ${{ secrets.DOCKER_HUB_PASSWORD }}
+        echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
     - name: docker push
       run: |
         docker push $DOCKER_IMAGE:$TAG
