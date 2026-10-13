@@ -49,11 +49,6 @@ jobs:
         run: |
           docker tag ghcr.io/pamgene/pamsoft_grid_rust_operator ghcr.io/pamgene/pamsoft_grid_rust_operator:${COMMIT_NUMBER}
           docker push ghcr.io/pamgene/pamsoft_grid_rust_operator:${COMMIT_NUMBER}
-      - name: docker tag/push latest
-        run: |
-          docker tag ghcr.io/pamgene/pamsoft_grid_rust_operator ghcr.io/pamgene/pamsoft_grid_rust_operator:latest
-          docker push ghcr.io/pamgene/pamsoft_grid_rust_operator:latest
-        if: env.TERCEN_VERSION == 'main'
       - name: docker minor tag version
         run: |
           docker tag ghcr.io/pamgene/pamsoft_grid_rust_operator ghcr.io/pamgene/pamsoft_grid_rust_operator:${TERCEN_MAJOR}

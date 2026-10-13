@@ -44,8 +44,6 @@ jobs:
     - name: docker push
       run: |
         docker push $DOCKER_IMAGE:$TAG
-        docker tag $DOCKER_IMAGE:$TAG $DOCKER_IMAGE:latest
-        docker push $DOCKER_IMAGE:latest
     - name: Pin operator.json to the tagged image and re-point the tag
       # The 'Update container' step rewrites operator.json to the versioned
       # image, but that change was never committed — so a Tercen git-install
